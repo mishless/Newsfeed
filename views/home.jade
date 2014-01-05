@@ -1,0 +1,19 @@
+extends layout
+block header
+	div.transparency
+	div.newsfeed-logo
+	div.navigation
+		a(href="/feeds") Feeds
+		a(href="/edit-profile") Edit Profile
+	div.signout-form
+		form(method="get", action="/signout")
+			label(class="signout-button")
+				input(value="Sign Out" type="submit" id="sign-out")
+block content
+	div.left
+		- var message = messages.pop() || []
+		- if (message[0]=="success") {
+		p.validateTips.success= message[1]
+		- } else if (message[0]=="error") {
+		p.validateTips.error= message[1]
+		- }

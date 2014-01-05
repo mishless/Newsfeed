@@ -1,0 +1,608 @@
+body, html {
+	/* padding: 50px;*/
+	margin: 0px;
+	font: 14px Verdana, Geneva, sans-serif;
+	height: 100%;
+}
+
+a {
+	color: #fda91c;
+}
+
+label,input {
+	display: block;
+}
+
+input.text {
+	margin-bottom: 12px;
+	width: 95%;
+	padding: .4em;
+}
+
+fieldset {
+	padding: 0;
+	border: 0;
+	margin-top: 25px;
+}
+
+h1 {
+	font-size: 1.2em;
+	margin: .6em 0;
+}
+/* Header styles */
+div.header {
+	position: absolute;
+	top: 0px;
+	width: 100%;
+	max-height: 100px;
+	line-height: 2em;
+}
+
+div.header .newsfeed-logo {
+	height: 80px;
+	width: 90px;
+	background: url("/images/logo2.png") no-repeat;
+	float: left;
+	margin: 10px;
+}
+/* End of Header styles */
+
+/* Header log in form */
+div.header .login-form {
+	float: right;
+}
+
+div.header .login-form table {
+	margin: 10px;
+}
+
+div.header .login-form table tr {
+	vertical-align: middle;
+}
+
+div.header .login-form table tr td {
+	padding:0 14px 0 14px
+}
+
+div.header .login-form .label {
+	padding-bottom:4px
+}
+
+div.header .login-form label {
+	color:#fda91c;
+}
+
+div.header .login-form .input-text {
+	border-color:#fda91c;
+	margin:0;
+	width:142px;
+}
+
+div.header .login-form .remember-me-box {
+	vertical-align: middle;
+}
+div.header .login-form .remember-me-box .remember-me {
+	display: inline-block;
+	padding-left: 5px;
+	vertical-align: middle;
+}
+
+div.header .login-form .log-in-button {
+	background-color: #fda91c;
+	border-color: #fdaa1c #fdaa1c #fdaa1c;
+}
+
+div.header .login-form .log-in-button input {
+	background: none;
+	border: 0;
+	cursor: pointer;
+	white-space: nowrap;
+	background-color: #fda91c;
+	color: #fff;
+	text-decoration: none;
+	padding: 5px;
+}
+/* End of Header log in form */
+
+/* Header sign up form */
+div.header .signup-form {
+	float: right;
+}
+
+div.header .signup-form label {
+	color:#fda91c;
+}
+
+div.header .signup-form .signup-button {
+	margin: 40px 20px 0 0;
+	background-color: #fda91c;
+	border-color: #fdaa1c #fdaa1c #fdaa1c;
+}
+
+div.header .signup-form .signup-button input {
+	background: none;
+	border: 0;
+	cursor: pointer;
+	white-space: nowrap;
+	background-color: #fda91c;
+	color: #fff;
+	text-decoration: none;
+	padding: 5px;
+}
+/* End of Header sign up form */
+
+/* Header log in button */
+div.header .login-form {
+	float: right;
+}
+
+div.header .login-form label {
+	color:#fda91c;
+}
+
+div.header .login-form .login-button {
+	margin: 40px 20px 0 0;
+	background-color: #fda91c;
+	border-color: #fdaa1c #fdaa1c #fdaa1c;
+}
+
+div.header .login-form .login-button input {
+	background: none;
+	border: 0;
+	cursor: pointer;
+	white-space: nowrap;
+	background-color: #fda91c;
+	color: #fff;
+	text-decoration: none;
+	padding: 5px;
+}
+/* End of Header log in button */
+
+/* Header sign out button */
+div.header .signout-form {
+	float: right;
+}
+
+div.header .signout-form label {
+	color:#fda91c;
+}
+
+div.header .signout-form .signout-button {
+	margin: 40px 20px 0 0;
+	background-color: #fda91c;
+	border-color: #fdaa1c #fdaa1c #fdaa1c;
+}
+
+div.header .signout-form .signout-button input {
+	background: none;
+	border: 0;
+	cursor: pointer;
+	white-space: nowrap;
+	background-color: #fda91c;
+	color: #fff;
+	text-decoration: none;
+	padding: 5px;
+}
+/* End of Header sign out button */
+
+/* Header links */
+div.header .navigation {
+	float: left;
+	margin: 40px 20px 0 30px;
+}
+
+div.header .navigation a {
+	color: #fda91c;
+	margin-left: 40px;
+	text-decoration: none;
+}
+
+div.header .navigation a:hover, a.selected {
+	color: #fef079;
+}
+
+/* End of Header links */
+
+/* Content styles */
+div.content {
+	min-height:100%;
+	margin: 0 100px -30px 100px;
+	text-align: center;
+}
+
+div.content:after {
+	content: "";
+	display:block;
+	height:30px;
+	
+}
+
+div.content .message {
+	background: rgba(0, 0, 0, 0.7);
+	text-align: center;
+	border-radius: 10px;
+	max-width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+	color: #00B7FF;
+}
+
+div.content .message span {
+	margin: 7px;
+}
+
+
+div.message span.error {
+	color: #FF0000;
+}
+
+.content .left {
+	display: inline-block;
+	margin-top: 140px;
+	margin-bottom:30px;
+	max-width: 450px;
+}
+
+div.content p.validateTips {
+	background: rgba(0, 0, 0, 0.7);
+	text-align: center;
+	border-radius: 10px;
+	max-width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+	color: #fda91c;
+	padding: 15px;
+}
+
+/* End of content styles */
+
+/* Footer styles */
+
+div.footer {
+	height: 30px;
+	width: 100%;
+	font-size: 13px;
+	background: rgba(0, 0, 0, 0.7);
+	padding-top:7px;
+}
+
+div.footer span {
+	width: 300px;
+	margin: 0 auto;
+	height:100%;
+	color: #fda91c;
+	display:block;
+}
+
+div.transparency {
+	opacity: 0.7;
+	filter: alpha(opacity = 70);
+	-moz-opacity: 0.7;
+	background-color: #000000;
+	top: 0px;
+	left: 0px;
+	z-index: -1;
+	height: 100%;
+	width: 100%;
+	position: absolute;
+}
+
+/* End of footer styles */
+
+/* Content sign up form */
+.content .signup-form {
+	padding: 25px;
+	background: rgba(0, 0, 0, 0.7);
+	border-radius: 15px;
+	color: #fda91c;
+	text-align: left;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.content .signup-form .row {
+	padding: 10px;
+	display:block;
+	overflow: hidden;
+	width: 350px;
+}
+
+.content .signup-form .row label {
+	display: block;
+	overflow: hidden;
+	float: left;
+}
+
+.content .signup-form .row input {
+	float: right;
+	height: 17px;
+	width: 180px;
+}
+
+.content .signup-form .row textarea {
+	float: right;
+	resize: none;
+	width: 180px;
+}
+
+.content .signup-form .row input.form-error {
+	border: 1px solid #FF0000;
+}
+
+.content .signup-form button {
+	font-size: 15px;
+	background-color: #fda91c;
+	color: #fff;
+	text-decoration: none;
+	cursor: poiner;
+	border: none;
+	padding: 5px;
+}
+
+.content .signup-form button:hover {
+	text-decoration: none;
+	box-shadow: 0px 0px 1px #777;
+}
+/* End form styles */
+
+
+/* Content log in form */
+.content .login-form {
+	padding: 25px;
+	background: rgba(0, 0, 0, 0.7);
+	border-radius: 15px;
+	color: #fda91c;
+	text-align: left;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.content .login-form .row {
+	padding: 10px;
+	display:block;
+	overflow: hidden;
+	width: 350px;
+}
+
+.content .login-form .row label {
+	display: block;
+	overflow: hidden;
+	float: left;
+}
+
+.content .login-form .row input {
+	float: right;
+	height: 17px;
+	width: 180px;
+}
+
+.content .login-form .row textarea {
+	float: right;
+	resize: none;
+	width: 180px;
+}
+
+.content .login-form .row input.form-error {
+	border: 1px solid #FF0000;
+}
+
+.content .login-form button {
+	font-size: 15px;
+	background-color: #fda91c;
+	color: #fff;
+	text-decoration: none;
+	cursor: poiner;
+	border: none;
+	padding: 5px;
+}
+
+.content .login-form button:hover {
+	text-decoration: none;
+	box-shadow: 0px 0px 1px #777;
+}
+/* End form styles */
+
+/* Content edit form with tabs styles */
+
+.content div.edit-form {
+	margin-top: 140px;	
+	margin-bottom: 30px;
+	width: 600px;
+	display: inline-block;
+}
+
+.content div.edit-form div#tabs {
+	border: none;
+	background: none;
+}
+
+.content div.edit-form div#tabs ul.ui-tabs-nav {
+	border: none;
+	background: none;
+	padding: 0;
+}
+
+.content div.edit-form div#tabs ul.ui-tabs-nav li.ui-state-default {
+	margin-bottom: 0px;
+	border: none;
+	background: rgba(0, 0, 0, 0.9);
+}
+
+.content div.edit-form div#tabs ul.ui-tabs-nav li.ui-state-default:last-child {
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+
+.content div.edit-form div#tabs ul.ui-tabs-nav li.ui-state-default.ui-state-active {
+	border: none;
+	background: rgba(0, 0, 0, 0.7);
+	margin-bottom: 0px;
+}
+
+.content div.edit-form div#tabs ul.ui-tabs-nav li.ui-state-default a {
+	outline: none;
+	color: #fda91c;
+}
+
+.content div.edit-form div#tabs div.ui-tabs-panel {
+	padding: 25px;
+	background: rgba(0, 0, 0, 0.7);
+	border-radius: 0 0 15px 15px;
+	color: #fda91c;
+	text-align: left;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.content div.edit-form div#tabs div.ui-tabs-panel .row {
+	padding: 10px;
+	display:block;
+	overflow: hidden;
+	width: 350px;
+}
+
+.content div.edit-form div#tabs div.ui-tabs-panel .row label {
+	display: block;
+	overflow: hidden;
+	float: left;
+}
+
+.content div.edit-form div#tabs div.ui-tabs-panel .row input {
+	float: right;
+	height: 17px;
+	width: 180px;
+}
+
+.content div.edit-form div#tabs div.ui-tabs-panel .row textarea {
+	float: right;
+	resize: none;
+	width: 180px;
+}
+
+.content div.edit-form div#tabs div.ui-tabs-panel .row input.form-error {
+	border: 1px solid #FF0000;
+}
+
+.content div.edit-form div#tabs div.ui-tabs-panel label {
+	display: inline-block;
+	vertical-align: middle;
+	cursor: pointer;
+}
+
+.content div.edit-form div#tabs div.ui-tabs-panel label input[type='file'] {
+	display: none;
+}
+
+.content div.edit-form div#tabs div.ui-tabs-panel img {
+	display: inline-block;
+	border-radius: 4px;
+}
+
+.content div.edit-form div#tabs div.ui-tabs-panel div.upload-text {
+	display: inline-block;
+	margin-left: 40px;
+	vertical-align: middle;
+}
+
+.content div.edit-form div#tabs div.ui-tabs-panel .blockedUsers .user-box {
+	padding: 30px;
+	width: 150px;
+	display: inline-block;
+	background-color: rgba(0, 0, 0, 0.3);
+	margin: 10px;
+}
+
+.content div.edit-form .submit-edit-form {
+	background: rgba(0, 0, 0, 0.7);
+	text-align: center;
+	border-radius: 10px;
+	max-width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+	color: #fda91c;
+	padding: 15px;
+	margin-top:14px;
+}
+
+.content div.edit-form .submit-edit-form .submit-edit-button {
+	background-color: #fda91c;
+	border-color: #fdaa1c #fdaa1c #fdaa1c;
+	display: inline-block;
+}
+.content div.edit-form .submit-edit-form .submit-edit-button input {
+	background: none;
+	border: 0;
+	cursor: pointer;
+	white-space: nowrap;
+	background-color: #fda91c;
+	color: #fff;
+	text-decoration: none;
+	padding: 5px;
+}
+
+/* End of content edit form with tabs styles */
+
+/* Popup syles */
+div.ui-widget-overlay {
+	background: #000000;
+	opacity: 0.6;
+	filter: alpha(opacity =       60);
+	-moz-opacity: 0.6;
+}
+
+div.ui-dialog {
+	background: rgba(77, 77, 77, 0.9);
+	border: none;
+	border-radius: 15px;
+	border: none;
+}
+
+div.ui-dialog .ui-dialog-titlebar {
+	background: none;
+	border: none;
+	color: #00B7FF;
+}
+
+div.ui-dialog .ui-dialog-buttonpane {
+	background: none;
+	border: none;
+	color: #00B7FF;
+	padding: 1em;
+}
+
+div.ui-dialog button span {
+	font-size: 15px;
+	background-color: #00B7FF;
+	color: #fff;
+	text-decoration: none;
+	cursor: poiner;
+	border: none;
+}
+
+div.ui-dialog .ui-dialog-titlebar button {
+	border: none;
+	color: #fff;
+	outline: none;
+	background-color: #00B7FF;
+}
+
+div.ui-dialog .ui-dialog-buttonpane .cancel {
+	float: right;
+	border: none;
+	outline: none;
+}
+
+div.ui-dialog .ui-dialog-buttonpane .add-new-book {
+	float: left;
+	border: none;
+	outline: none;
+}
+
+div.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
+	float: none;
+}
+
+div.ui-widget-content {
+	color: #00B7FF;
+}
+/* End Popup syles */

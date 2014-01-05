@@ -1,0 +1,70 @@
+extends layout
+block header
+	div.transparency
+	div.newsfeed-logo
+	div.login-form
+		form(method="post", action="/login")
+			table(cellspacing="0")
+				tbody
+					tr
+						td(class="label")
+							label(for="username") Username
+						td(class="label")
+							label(for="password") Password
+					tr
+						td(class="input-text")
+							input(type="text" class="username" name="username" id="username" value= username tabindex="1")
+						td(class="input-text")
+							input(type="password" class="password" name="password" id="password" value= password tabindex="2")
+						td(class="log-in")
+							label(class="log-in-button")
+								input(value="Log In" tabindex="4" type="submit" id="log-in")
+					tr
+						td(class="remember-me-box")
+							input(id="remember-me" type="checkbox" name="remember-me" value="1" checked="1" class="remember-me")
+							label(for="remember-me" class="remember-me") Remember me
+							
+block content
+	div.left
+		- var message = messages.pop() || []
+		- if (message[0]=="success") {
+		p.validateTips.success= message[1]
+		- } else if (message[0]=="error") {
+		p.validateTips.error= message[1]
+		- } else {
+		p.validateTips All form fields with '*' are required
+		- }
+		div.signup-form
+			form(method="post", action="/signup")
+				fieldset
+					p Sign up today and get news from your friends!				
+					div.row
+						label(for="sign-up-username", title="Username must be between 5 and 30 symbols.") Username *
+						input(type="text", name="sign-up-username", id="sign-up-username")
+					div.row
+						label(for="sign-up-password") Password *
+						input(type="password", name="sign-up-password", id="sign-up-password")
+					div.row
+						label(for="first-name") First Name *
+						input(type="text", name="first-name", id="first-name")
+					div.row
+						label(for="last-name") Last Name *
+						input(type="text", name="last-name", id="last-name")
+					div.row
+						label(for="email") E-mail *
+						input(type="text", name="email", id="email")
+					div.row
+						label(for="age") Birthdate *
+						input(type="text", name="birthdate", id="birthdate")
+					div.row
+						label(for="address") Address
+						textarea(name="address", id="address")
+					div.row
+						button(type="submit", id="sign-up") Sign Up
+block script
+	script
+		jQuery(function($) {
+			$( "#birthdate" ).datepicker();
+		});
+	script(src="/js/signup-validation.js")
+	script(src="/js/login-validation.js")

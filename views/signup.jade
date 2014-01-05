@@ -1,0 +1,44 @@
+extends layout
+block header
+	div.transparency
+	div.newsfeed-logo
+	div.login-form
+		form(method="get", action="/login")
+			label(class="login-button")
+				input(value="Log in" type="submit" id="log-in")						
+block content
+	div.left
+		p.validateTips All form fields with '*' are required
+		div.signup-form
+			form(method="post", action="/signup")
+				fieldset
+					p Sign up today and get news from your friends!				
+					div.row
+						label(for="sign-up-username", title="Username must be between 5 and 30 symbols.") Username *
+						input(type="text", name="sign-up-username", id="sign-up-username")
+					div.row
+						label(for="sign-up-password") Password *
+						input(type="password", name="sign-up-password", id="sign-up-password")
+					div.row
+						label(for="first-name") First Name *
+						input(type="text", name="first-name", id="first-name")
+					div.row
+						label(for="last-name") Last Name *
+						input(type="text", name="last-name", id="last-name")
+					div.row
+						label(for="email") E-mail *
+						input(type="text", name="email", id="email")
+					div.row
+						label(for="age") Birthdate *
+						input(type="text", name="birthdate", id="birthdate")
+					div.row
+						label(for="address") Address
+						textarea(name="address", id="address")
+					div.row
+						button(type="submit", id="sign-up") Sign Up
+block script
+	script
+		jQuery(function($) {
+			$( "#birthdate" ).datepicker();
+		});
+	script(src="/js/signup-validation.js")

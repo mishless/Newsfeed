@@ -1,0 +1,20 @@
+doctype 5
+html
+	head
+	title= title
+	link(rel='stylesheet', href='/stylesheets/style.css')
+	link(rel='stylesheet', href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css")
+	link(rel='stylesheet', href='/stylesheets/jquery.fancybox.css', type='text/css', media='screen')
+	link(rel="stylesheet", href="/stylesheets/jquery.fancybox-buttons.css", type="text/css", media="screen")
+	script(src="http://code.jquery.com/jquery-1.9.1.js")
+	script(src="http://code.jquery.com/ui/1.10.3/jquery-ui.js")
+	script(type='text/javascript', src='/js/jquery.fancybox.js')
+	script(type="text/javascript", src="/js/jquery.fancybox-buttons.js")
+	body
+		block script
+		div.header
+			block header
+		div.content
+			block content
+		div.footer
+			span #{nameVersionCredentials(appName, version, credentials)}
