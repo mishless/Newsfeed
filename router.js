@@ -10,4 +10,6 @@ module.exports = function(app) {
 	app.get("/signout", index.signout);
 	app.get("/edit-profile", index.editProfile);
 	app.post("/edit-profile", index.updateProfile);
+    app.get("/feeds", index.feeds);
+    app.post("/feeds", index.postFeed);
 };

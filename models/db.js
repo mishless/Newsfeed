@@ -15,9 +15,16 @@ var userSchema = new mongoose.Schema({
 	imgMediumPath: {type: String},
 	imgThumbPath: {type: String}
 });
-
+var feedSchema = new mongoose.Schema({
+    content: {type:String, required: true},
+    user: {type: mongoose.Schema.Types.ObjectId,ref:"user", required: true },
+    creationDate: {type: Date, required: true},
+    modificationDate: {type: Date},
+    likes: {type:[String]},
+	deleted: {type: Boolean}
+});
 mongoose.model("user", userSchema, "user");
-
+mongoose.model("feed", feedSchema, "feed");
 mongoose.connect('mongodb://localhost/newsfeed', function(err, res) {
 	if (err) {
 		console.log('Could not connect to newsfeed database. ' + err);

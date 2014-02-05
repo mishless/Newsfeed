@@ -1,5 +1,5 @@
 var user = require('../models/user');
-
+var feed = require('../models/feed')
 exports.index = function(req, res) {
 	res.render('index', {title : "Newsfeed"});
 };
@@ -71,13 +71,19 @@ exports.register = function(req, res) {
 						}
 					});
 };
+function checkSession(session, res){
+    if (session.user == null) {
+        session.messages.push(['error',
+            'Your session has expired. Please log in your account.']);
+        res.redirect("/");
+        return false;
+    }
+    else
+        return true;
 
+}
 exports.home = function(req, res) {
-	if (req.session.user == null) {
-		req.session.messages.push(['error',
-				'Your session has expired. Please log in your account.']);
-		res.redirect("/");
-	} else {
+    if(checkSession(req.session,res)){
 		res.render("home", {
 			title : "Welcome",
 			userdata : req.session.user
@@ -86,11 +92,7 @@ exports.home = function(req, res) {
 };
 
 exports.signout = function(req, res) {
-	if (req.session.user == null) {
-		req.session.messages.push(['error',
-				'Your session has expired. Please log in your account.']);
-		res.redirect("/");
-	} else {
+	if(checkSession(req.session, res)){
 		req.session.user = null;
 		req.session.messages.push(['success', 'Your have successfully logged out.']);
 		res.redirect("/");
@@ -99,11 +101,7 @@ exports.signout = function(req, res) {
 
 
 exports.editProfile = function(req, res) {
-	if (req.session.user == null) {
-		req.session.messages.push(['error',
-				'Your session has expired. Please log in your account.']);
-		res.redirect("/login");
-	} else {
+	if (checkSession(req.session, res)){
 		var birthdate = new Date(req.session.user.birthdate);
 		var formattedBirthdate =  ('0' + (birthdate.getMonth() + 1)).slice(-2) + '/' + ('0' + birthdate.getDate()).slice(-2) + '/' +  birthdate.getFullYear();
 		user.getAllUsersExceptOneself(req.session.user.username, function(error, allUsers) {
@@ -139,11 +137,7 @@ exports.editProfile = function(req, res) {
 };
 
 exports.updateProfile =  function(req, res) {
-	if (req.session.user == null) {
-		req.session.messages.push(['error',
-				'Your session has expired. Please log in your account.']);
-		res.redirect("/");
-	} else {
+	if (checkSession(req.session, res)) {
 		console.log(req.body);
 		console.log(req.files);
 		user.updateAccount(req.session.user._id, req.body, req.files, function(error, result) {
@@ -170,7 +164,43 @@ exports.updateProfile =  function(req, res) {
 		});
 	}
 };
-
+exports.feeds = function(req, res){
+    if (checkSession(req.session, res)) {
+        var skip = parseInt(req.query.skip);
+        var feedsCount = 3;
+        if(!skip||skip<0)
+            skip = 0;
+        feed.getNextNFeeds(feedsCount, skip, function (error, result) {
+	        if(error){
+	           session.messages.push(["error", error]);
+           }else{
+            //console.log(result);
+	        var nextSkip = skip + feedsCount;
+            res.render("feeds", {feeds: result, nextSkip:(skip + feedsCount), prevSkip:(skip - feedsCount)});
+           }
+        });
+    }
+}
+exports.postFeed = function(req, res){
+    if(checkSession(req.session, res)){
+		feed.addFeed({content:req.param("feed-content"),user:req.session.user._id},function(error){
+			if(error){
+				session.messages.push(["error", error]);//Should show internal server error...
+			}
+			else{
+				const feedsCount = 3;
+				feed.getFirstNFeeds(feedsCount,function(error, result){
+					if(error){
+						session.messages.push(["error", error]);//Should show internal server error...
+					}
+					else{
+						res.render("feeds", {feeds: result, nextSkip:feedsCount});
+					}
+				})
+			}
+		});
+    }
+}
 exports.notFound = function(req, res) {
 	res.render("404");
 };

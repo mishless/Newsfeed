@@ -3,6 +3,7 @@ var crypto = require("crypto");
 var mkdirp = require("mkdirp");
 var fs = require("fs");
 var im = require("imagemagick");
+
 exports.autoLogin = function(username, password, callback) {
 	var user = mongoose.model('user');
 	user.findOne({
@@ -249,7 +250,16 @@ exports.getUserById = function(id, callback) {
 		}
 	})
 };
-
+exports.getUserByIdBrief = function(id, callback){
+	var user = mongoose.model('user');
+	user.findOne({_id:id},{_id:1,firstname:1,lastname:1}, function(error, result){
+		if (error) {
+			callback(error);
+		} else {
+			callback(null, result);
+		}
+	})
+}
 exports.getAllUsersExceptOneself = function(username, callback) {
 	var user = mongoose.model('user');
 	user.find({username : {$ne : username}}, function(error, result) {

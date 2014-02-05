@@ -31,7 +31,7 @@ h1 {
 }
 /* Header styles */
 div.header {
-	position: absolute;
+	position: fixed;
 	top: 0px;
 	width: 100%;
 	max-height: 100px;
@@ -604,5 +604,31 @@ div.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
 
 div.ui-widget-content {
 	color: #00B7FF;
+}
+div.post-feed-button{
+
+}
+div.feed {
+    text-align:left;
+}
+hr {
+    background-color: #777777;
+    color: #777777;
+    height: 1px;
+    border: 0px;
+    clear: both;
+}
+div.send-feed-form{
+    background: none;
+    border: 0;
+    cursor: pointer;
+    white-space: nowrap;
+    background-color: #fda91c;
+    color: #fff;
+    text-decoration: none;
+    padding: 5px;
+}
+a {
+    color: #111111;
 }
 /* End Popup syles */

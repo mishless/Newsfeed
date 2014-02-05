@@ -29,7 +29,7 @@ block content
 					li
 						a(href="#blocked-users") Blocked users
 				div(id="profile")
-					fieldset	
+					fieldset(id="profile-fieldset")
 						div.row
 							label(for="username", title="Username must be between 5 and 30 symbols.") Username *
 							input(type="text", name="username", id="username", value= username)
@@ -90,4 +90,4 @@ block script
 				.fancybox({
 					padding : 0
 				});
-		});
+		})

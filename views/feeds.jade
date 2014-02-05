@@ -1,0 +1,44 @@
+//-Created by daniel on 2/3/14.
+extends layout
+block header
+    div.transparency
+    div.newsfeed-logo
+    div.navigation
+        a(href = "/feeds") Feeds
+        a(href = "/edit-profile") Edit Profile
+    div.signout-form
+        form(method = "get", action = "/signout")
+            label(class = "signout-button")
+                input(value ="Sign Out" type = "submit" id = "sign-out")
+block content
+    div.left(style = "font-size:9pt")
+        div#tabs
+            form(method = "post", action = "/feeds")
+                input(type = "textarea", name="feed-content")
+                input(type = "submit", value = "send", id = "edit-button")
+
+            hr
+        each feed in feeds
+            div.feed
+                a(href="/profile?id=" + feed.user.id)
+                    h2= feed.user.firstname + " " + feed.user.lastname
+                p
+                    = feed.content
+                    p
+                    a(href="/like")
+                        |Like
+                    hr
+        a(href="/feeds?skip=" + prevSkip, style="font-size:12pt;float:left")
+            |Newer...
+        a(href="/feeds?skip=" + nextSkip, style="font-size:12pt;float:right")
+            |Older...
+block script
+    script(src="/socket.io/socket.io.js", type="text/javascript")
+    script(type="text/javascript").
+        var socket = io.connect('http://localhost:3000');
+        socket.on('news', function (data) {
+            alert(data);
+            socket.emit('my other event', { my: 'data' });
+                              });
+
+
