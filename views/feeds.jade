@@ -21,6 +21,7 @@ block content
         each feed in feeds
             div.feed
                 a(href="/profile?id=" + feed.user.id)
+                    img(src= feed.user.imgThumbPath ? feed.user.imgThumbPath : "/images/no-image-medium.png")
                     h2= feed.user.firstname + " " + feed.user.lastname
                 p
                     = feed.content
@@ -37,8 +38,5 @@ block script
     script(type="text/javascript").
         var socket = io.connect('http://localhost:3000');
         socket.on('news', function (data) {
-            alert(data);
             socket.emit('my other event', { my: 'data' });
                               });
-
-

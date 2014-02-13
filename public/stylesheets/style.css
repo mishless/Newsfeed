@@ -31,7 +31,7 @@ h1 {
 }
 /* Header styles */
 div.header {
-	position: fixed;
+	position: absolute;
 	top: 0px;
 	width: 100%;
 	max-height: 100px;
@@ -608,8 +608,18 @@ div.ui-widget-content {
 div.post-feed-button{
 
 }
-div.feed {
-    text-align:left;
+/* Feed styles */
+
+.content div.feed {
+    background: rgba(0, 0, 0, 0.7);
+	border-radius: 10px;
+	width: 400px;
+	max-width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+	color: #fda91c;
+	padding: 15px;
+	margin-top:14px;
 }
 hr {
     background-color: #777777;
@@ -628,7 +638,23 @@ div.send-feed-form{
     text-decoration: none;
     padding: 5px;
 }
-a {
+.content div.feed a {
+	text-decoration: none;
     color: #111111;
+    float: left;
+}
+
+.content div.feed a h2 {
+	padding-left: 5px;
+	display: inline-block;
+}
+.content div.feed img {
+	vertical-align:middle;
+}
+
+.content div.feed p {
+	text-decoration: none;
+    float: left;
+    clear: left;
 }
 /* End Popup syles */

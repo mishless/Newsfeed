@@ -252,7 +252,7 @@ exports.getUserById = function(id, callback) {
 };
 exports.getUserByIdBrief = function(id, callback){
 	var user = mongoose.model('user');
-	user.findOne({_id:id},{_id:1,firstname:1,lastname:1}, function(error, result){
+	user.findOne({_id:id},{_id:1, firstname:1, lastname:1, imgThumbPath:1}, function(error, result){
 		if (error) {
 			callback(error);
 		} else {
