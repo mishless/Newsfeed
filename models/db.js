@@ -23,6 +23,7 @@ var feedSchema = new mongoose.Schema({
     likes: {type:[mongoose.Schema.Types.ObjectId]},
 	deleted: {type: Boolean}
 });
+
 mongoose.model("user", userSchema, "user");
 mongoose.model("feed", feedSchema, "feed");
 mongoose.connect('mongodb://localhost/newsfeed', function(err, res) {

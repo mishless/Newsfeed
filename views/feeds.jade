@@ -8,6 +8,11 @@ block header
         a(href = "/edit-profile") Edit Profile
     div.signout-form
         form(method = "get", action = "/signout")
+            a.profile-info(href="/profile?id=" + id)
+                img(src= thumbImg, alt="Profile picture")
+                span(class="user")= firstname
+                 |&nbsp;
+                 = lastname
             label(class = "signout-button")
                 input(value ="Sign Out" type = "submit" id = "sign-out")
 block script
@@ -24,7 +29,7 @@ block content
             hr
         //-forEach feed in feeds
             div.feed
-                a(href="/profile?id=" + feed.user.id)
+                a(href="/profile/" + feed.user.id)
                     img(src= feed.user.imgThumbPath ? feed.user.imgThumbPath : "/images/no-image-medium.png")
                     h2= feed.user.firstname + " " + feed.user.lastname
                 p

@@ -1,0 +1,50 @@
+extends layout
+block header
+	div.transparency
+	div.newsfeed-logo
+	div.navigation
+		a(href="/feeds") Feeds
+		a(href="/edit-profile") Edit Profile
+	div.signout-form
+		a.profile-info(href="/profile/" + id)
+			img(src= thumbImg, alt="Profile picture")
+			span(class="user")= firstname
+				|&nbsp;
+				= lastname
+		form(method="get", action="/signout")
+			label(class="signout-button")
+				input(value="Sign Out" type="submit" id="sign-out")
+block content
+	div.profile
+		- if(userToView.imgMediumPath && userToView.imgFullSizePath) {
+		a(class="fancybox" rel="group" href= userToView.imgFullSizePath)
+			img(src= userToView.imgMediumPath)
+		- } else {
+		a(class="fancybox" rel="group" href="/images/no-image.png")
+			img(src="/images/no-image-medium.png" alt="No image")
+		- }
+		div.info
+			div.row
+				label(for="username") Username:
+				span(id="username")= userToView.username
+			div.row
+				label(for="first-name") First Name:
+				span(id="first-name")= userToView.firstname
+			div.row
+				label(for="last-name") Last Name:
+				span(id="last-name")= userToView.lastname
+			div.row
+				label(for="email") Email:
+				span(id="email")= userToView.email
+			div.row
+				label(for="address") Address:
+				span(id="address")= userToView.address
+block script
+	script
+		jQuery(function($) {
+			$(".fancybox").attr('rel', 'gallery')
+				.fancybox({
+					padding : 0
+				});
+		});
+		

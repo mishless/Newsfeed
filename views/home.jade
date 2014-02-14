@@ -6,6 +6,11 @@ block header
 		a(href="/feeds") Feeds
 		a(href="/edit-profile") Edit Profile
 	div.signout-form
+		a.profile-info(href="/profile/" + userdata._id)
+			img(src= userdata.imgThumbPath, alt="Profile picture")
+			span(class="user")= userdata.firstname
+				|&nbsp;
+				= userdata.lastname
 		form(method="get", action="/signout")
 			label(class="signout-button")
 				input(value="Sign Out" type="submit" id="sign-out")
