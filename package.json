@@ -12,6 +12,8 @@
     "mongoose": "*",
 	"socket.io": "*",
 	"imagemagick": "*",
+	 "cookie": "*",
+	  "connect": "*",
 	"mkdirp": "*"
   }
 }

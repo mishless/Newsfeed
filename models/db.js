@@ -20,7 +20,7 @@ var feedSchema = new mongoose.Schema({
     user: {type: mongoose.Schema.Types.ObjectId,ref:"user", required: true },
     creationDate: {type: Date, required: true},
     modificationDate: {type: Date},
-    likes: {type:[String]},
+    likes: {type:[mongoose.Schema.Types.ObjectId]},
 	deleted: {type: Boolean}
 });
 mongoose.model("user", userSchema, "user");

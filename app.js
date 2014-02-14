@@ -6,10 +6,10 @@ var index = require('./routes/index');
 var flash = require('connect-flash');
 var db = require("./models/db");
 var mongoose = require('mongoose');
-
+var socketIoServer = require('./models/socket-io-server');
 var app = express();
-
-
+var cookie = require("cookie");
+var connect = require("connect");
 
 
 // all environments
@@ -54,11 +54,22 @@ var server = http.createServer(app);
 server.listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
-io = require('socket.io').listen(server);
+io = require('socket.io').listen(server,{ log: false });
 
-io.sockets.on('connection', function (socket) {
-	socket.emit('news', { hello: 'world' });
-	socket.on('my other event', function (data) {
-		console.log(data);
-	});
+io.set('authorization', function (handshakeData, accept) {
+
+	if (handshakeData.headers.cookie) {
+
+		handshakeData.cookie = cookie.parse(handshakeData.headers.cookie);
+		var sid = connect.utils.parseSignedCookie(handshakeData.cookie['connect.sid'], 'super-duper-secret-secret')
+		if(!sid)
+		//if (handshakeData.cookie['connect.sid'].split('.')[0].split('s:')[1] != sid) {
+			return accept('Cookie is invalid.', false);
+		//};
+	} else {
+		return accept('No cookie transmitted.', false);
+	}
+
+	accept(null, true);
 });
+socketIoServer.createSocketIoServer(io);

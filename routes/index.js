@@ -1,5 +1,5 @@
 var user = require('../models/user');
-var feed = require('../models/feed')
+var feed = require('../models/feed');
 exports.index = function(req, res) {
 	res.render('index', {title : "Newsfeed"});
 };
@@ -170,19 +170,22 @@ exports.feeds = function(req, res){
         var feedsCount = 3;
         if(!skip||skip<0)
             skip = 0;
-        feed.getNextNFeeds(feedsCount, skip, function (error, result) {
+	    res.render("feeds", {user:req.session.user._id});
+
+       /* feed.getNextNFeeds(feedsCount, skip, function (error, result) {
 	        if(error){
 	           session.messages.push(["error", error]);
            }else{
             //console.log(result);
 	        var nextSkip = skip + feedsCount;
-            res.render("feeds", {feeds: result, nextSkip:(skip + feedsCount), prevSkip:(skip - feedsCount)});
+            //res.render("feeds", {feeds: result, nextSkip:(skip + feedsCount), prevSkip:(skip - feedsCount)});
+
            }
-        });
+        });*/
     }
 }
 exports.postFeed = function(req, res){
-    if(checkSession(req.session, res)){
+   /* if(checkSession(req.session, res)){
 		feed.addFeed({content:req.param("feed-content"),user:req.session.user._id},function(error){
 			if(error){
 				session.messages.push(["error", error]);//Should show internal server error...
@@ -199,7 +202,7 @@ exports.postFeed = function(req, res){
 				})
 			}
 		});
-    }
+    }*/
 }
 exports.notFound = function(req, res) {
 	res.render("404");

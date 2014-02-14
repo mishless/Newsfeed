@@ -52,7 +52,7 @@ exports.addFeed = function(data, callback){
                 callback(error)
             }
             else{
-                callback(null);
+                callback(null,newFeed);
             }
         })
     }
