@@ -60,3 +60,15 @@ exports.addFeed = function(data, callback){
 	    callback("Invalid argument");
     }
 }
+
+exports.getAllFeedsFromUserById  = function(userId, callback){
+    var message = mongoose.model("feed");
+    message.find({user: userId}).populate("user").exec( function(error, result){
+        if(error){
+            callback(error);
+        }
+        else{
+            callback(null, result);
+        }
+    });
+};

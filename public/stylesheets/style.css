@@ -163,6 +163,32 @@ div.header .signout-form {
 	float: right;
 }
 
+div.header .signout-form .profile-info {
+	float: left;
+	vertical-align: middle;
+}
+
+div.header .signout-form .profile-info img {
+	float: left;
+	vertical-align: middle;
+	margin:25px 10px 0 0;
+}
+
+div.header .signout-form .profile-info span {
+	float: right;
+	vertical-align: middle;
+	margin:40px 10px 0 0;
+	color: #fda91c;
+}
+div.header .signout-form .profile-info {
+	float: left;
+}
+
+
+div.header .signout-form form {
+	float: right;
+}
+
 div.header .signout-form label {
 	color:#fda91c;
 }
@@ -542,6 +568,41 @@ div.transparency {
 
 /* End of content edit form with tabs styles */
 
+/* Profile styles */
+
+.content div.profile {
+		padding: 25px;
+	background: rgba(0, 0, 0, 0.7);
+	border-radius: 15px;
+	color: #fda91c;
+	text-align: left;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 140px;	
+	margin-bottom: 30px;
+	width: 600px;
+	display: inline-block;
+}
+.content div.profile a {
+	float: left;
+}
+.content div.profile .info {
+	float: right;
+	max-width:450px;
+}
+
+.content div.profile .info .row {
+	display: inline-block;
+	margin:30px;
+	width:400px;
+	}
+
+.content div.profile .info .row label{
+	float: left;
+	margin-right:40px;
+}
+
+/* End profile styles */
 /* Popup syles */
 div.ui-widget-overlay {
 	background: #000000;

@@ -3,6 +3,7 @@ var crypto = require("crypto");
 var mkdirp = require("mkdirp");
 var fs = require("fs");
 var im = require("imagemagick");
+var feeds = require("../models/feed");
 
 exports.autoLogin = function(username, password, callback) {
 	var user = mongoose.model('user');
@@ -118,104 +119,201 @@ exports.updateAccount = function(id, data, files, callback) {
 	} else if (data.address === undefined) {
 		callback("address-not-defined");
 	}
-	user.findOne({
-		$or : [ {
-			username : data.username,
-			_id : {
-				$not : id
-			}
-		}, {
-			email : data.email,
-			_id : {
-				$not : id
-			}
-		} ]
-	}, function(error, result) {
-		if (result) {
-			if (result.username == req.session.user.username) {
-				callback("username-exists");
-			} else if (result.email == req.session.user.email) {
-				callback("email-exists");
-			}
-		} else {
-			fs.readFile(files["profile-image"].path, function (err, imgData) {
-				if (err) {
-					console.log("reading");
-					callback(err);
-				} else {
-					var newPath = "./public/images/uploads/" + data.username;
-					mkdirp(newPath, function (err) {
-					if (err) {
-						console.log("mkdirp");
-						callback(err);
-					} else {
-							var extension = files["profile-image"].name.substr(files["profile-image"].name.lastIndexOf("."), files["profile-image"].name.length);
-					    	var fullSize = "fullSize" + extension;
-					    	var thumb = "thumb" + extension;
-					    	var medium = "medium" + extension;
-							fs.writeFile(newPath + "/" + fullSize, imgData, function (err) {
-					    		if (err) {
-									console.log("writing");
-					    			callback(err);
-					    		} else {
-					    			im.resize({
-					  				  srcPath: newPath + "/" + fullSize,
-					  				  dstPath: newPath + "/" + medium,
-					  				  width: 100,
-					  				  height: 100
-					  				}, function(err, stdout, stderr) {
-					  				  if (err) {
-					  					  callback(err);
-					  				  } else {
-					  					im.resize({
-							  				  srcPath: newPath + "/" + fullSize,
-							  				  dstPath: newPath + "/" + thumb,
-							  				  width: 50,
-							  				  height: 50
-							  				}, function(err, stdout, stderr) {
-							  					if (err) {
-							  						callback(err);
-							  					} else {
-							  						var birthdateInMilis = Date.parse(data.birthdate);
-									    			var blockedUsers = (data.blockedUsers) ? data.blockedUsers : []; 
-									    			saltAndHash(data.password, function(hash) {
-									    				user.update({
-									    					_id : id
-									    				}, {
-									    					'username' : data.username,
-									    					'password' : hash,
-									    					'firstname' : data['first-name'],
-									    					'lastname' : data['last-name'],
-									    					'email' : data.email,
-									    					'birthdate' : birthdateInMilis,
-									    					'address' : data.address,
-									    					'blockedUsers' : blockedUsers,
-									    					'modifiedDate' : new Date(),
-									    					'imgFullSizePath' : "/images/uploads/" + data.username + "/" + fullSize,
-									    					'imgMediumPath' : "/images/uploads/" + data.username + "/" + medium,
-									    					'imgThumbPath' : "/images/uploads/" + data.username + "/" + thumb
-									    				}, function(error, result) {
-									    					if (error) {
-																console.log("update");
-									    						callback(error);
-									    					} else {
-									    						callback(null, result);
-									    					}
-									    				});
-									    			});
-							  					}
-							  				});
-					  				}
-					    		});
+	user
+			.findOne(
+					{
+						$or : [ {
+							username : data.username,
+							_id : {
+								$not : id
 							}
-					    });
-					}
-				  
-			  });
-			}
-		});
-	}
-});
+						}, {
+							email : data.email,
+							_id : {
+								$not : id
+							}
+						} ]
+					},
+					function(error, result) {
+						if (result) {
+							if (result.username == req.session.user.username) {
+								callback("username-exists");
+							} else if (result.email == req.session.user.email) {
+								callback("email-exists");
+							}
+						} else {
+							if (files["profile-image"].name !== "") {
+								fs
+										.readFile(
+												files["profile-image"].path,
+												function(err, imgData) {
+													if (err) {
+														console.log("reading");
+														callback(err);
+													} else {
+														var newPath = "./public/images/uploads/"
+																+ data.username;
+														mkdirp(
+																newPath,
+																function(err) {
+																	if (err) {
+																		console
+																				.log("mkdirp");
+																		callback(err);
+																	} else {
+																		var extension = files["profile-image"].name
+																				.substr(
+																						files["profile-image"].name
+																								.lastIndexOf("."),
+																						files["profile-image"].name.length);
+																		var fullSize = "fullSize"
+																				+ extension;
+																		var thumb = "thumb"
+																				+ extension;
+																		var medium = "medium"
+																				+ extension;
+																		fs
+																				.writeFile(
+																						newPath
+																								+ "/"
+																								+ fullSize,
+																						imgData,
+																						function(
+																								err) {
+																							if (err) {
+																								console
+																										.log("writing");
+																								callback(err);
+																							} else {
+																								im
+																										.resize(
+																												{
+																													srcPath : newPath
+																															+ "/"
+																															+ fullSize,
+																													dstPath : newPath
+																															+ "/"
+																															+ medium,
+																													width : 100,
+																													height : 100
+																												},
+																												function(
+																														err,
+																														stdout,
+																														stderr) {
+																													if (err) {
+																														callback(err);
+																													} else {
+																														im
+																																.resize(
+																																		{
+																																			srcPath : newPath
+																																					+ "/"
+																																					+ fullSize,
+																																			dstPath : newPath
+																																					+ "/"
+																																					+ thumb,
+																																			width : 50,
+																																			height : 50
+																																		},
+																																		function(
+																																				err,
+																																				stdout,
+																																				stderr) {
+																																			if (err) {
+																																				callback(err);
+																																			} else {
+																																				var birthdateInMilis = Date
+																																						.parse(data.birthdate);
+																																				var blockedUsers = (data.blockedUsers) ? data.blockedUsers
+																																						: [];
+																																				saltAndHash(
+																																						data.password,
+																																						function(
+																																								hash) {
+																																							user
+																																									.update(
+																																											{
+																																												_id : id
+																																											},
+																																											{
+																																												'username' : data.username,
+																																												'password' : hash,
+																																												'firstname' : data['first-name'],
+																																												'lastname' : data['last-name'],
+																																												'email' : data.email,
+																																												'birthdate' : birthdateInMilis,
+																																												'address' : data.address,
+																																												'blockedUsers' : blockedUsers,
+																																												'modifiedDate' : new Date(),
+																																												'imgFullSizePath' : "/images/uploads/"
+																																														+ data.username
+																																														+ "/"
+																																														+ fullSize,
+																																												'imgMediumPath' : "/images/uploads/"
+																																														+ data.username
+																																														+ "/"
+																																														+ medium,
+																																												'imgThumbPath' : "/images/uploads/"
+																																														+ data.username
+																																														+ "/"
+																																														+ thumb
+																																											},
+																																											function(
+																																													error,
+																																													result) {
+																																												if (error) {
+																																													console
+																																															.log("update");
+																																													callback(error);
+																																												} else {
+																																													callback(
+																																															null,
+																																															result);
+																																												}
+																																											});
+																																						});
+																																			}
+																																		});
+																													}
+																												});
+																							}
+																						});
+																	}
+
+																});
+													}
+												});
+							} else {
+								var birthdateInMilis = Date
+										.parse(data.birthdate);
+								var blockedUsers = (data.blockedUsers) ? data.blockedUsers
+										: [];
+								saltAndHash(data.password, function(hash) {
+									user.update({
+										_id : id
+									}, {
+										'username' : data.username,
+										'password' : hash,
+										'firstname' : data['first-name'],
+										'lastname' : data['last-name'],
+										'email' : data.email,
+										'birthdate' : birthdateInMilis,
+										'address' : data.address,
+										'blockedUsers' : blockedUsers,
+										'modifiedDate' : new Date()
+									}, function(error, result) {
+										if (error) {
+											console.log("update");
+											callback(error);
+										} else {
+											callback(null, result);
+										}
+									});
+								});
+							}
+						}
+					});
 };
 
 exports.getAllUsers = function(callback) {
@@ -231,7 +329,9 @@ exports.getAllUsers = function(callback) {
 
 exports.getUserByUsername = function(username, callback) {
 	var user = mongoose.model('user');
-	user.findOne({username : username}, function(error, result) {
+	user.findOne({
+		username : username
+	}, function(error, result) {
 		if (error) {
 			callback(error);
 		} else {
@@ -242,7 +342,9 @@ exports.getUserByUsername = function(username, callback) {
 
 exports.getUserById = function(id, callback) {
 	var user = mongoose.model('user');
-	user.findOne({_id : id}, function(error, result) {
+	user.findOne({
+		_id : id
+	}, function(error, result) {
 		if (error) {
 			callback(error);
 		} else {
@@ -250,9 +352,16 @@ exports.getUserById = function(id, callback) {
 		}
 	})
 };
-exports.getUserByIdBrief = function(id, callback){
+exports.getUserByIdBrief = function(id, callback) {
 	var user = mongoose.model('user');
-	user.findOne({_id:id},{_id:1, firstname:1, lastname:1, imgThumbPath:1}, function(error, result){
+	user.findOne({
+		_id : id
+	}, {
+		_id : 1,
+		firstname : 1,
+		lastname : 1,
+		imgThumbPath : 1
+	}, function(error, result) {
 		if (error) {
 			callback(error);
 		} else {
@@ -262,7 +371,21 @@ exports.getUserByIdBrief = function(id, callback){
 }
 exports.getAllUsersExceptOneself = function(username, callback) {
 	var user = mongoose.model('user');
-	user.find({username : {$ne : username}}, function(error, result) {
+	user.find({
+		username : {
+			$ne : username
+		}
+	}, function(error, result) {
+		if (error) {
+			callback(error);
+		} else {
+			callback(null, result);
+		}
+	});
+}
+
+exports.getRatingByUserId = function(userId, callback) {
+	getAllLikesForUserById(userId, function(error, result) {
 		if (error) {
 			callback(error);
 		} else {
@@ -294,4 +417,14 @@ var validatePassword = function(plainPassword, hashedPassword, callback) {
 	var salt = hashedPassword.substr(0, 10);
 	var validHash = salt + md5(plainPassword + salt);
 	callback(hashedPassword === validHash);
+};
+
+var getAllLikesForUserById = function(userId, callback) {
+	feed.getAllFeedsFromUserById(userId, function(error, result) {
+		if (error) {
+			callback(error)
+		} else {
+			callback(null, result);
+		}
+	});
 };

@@ -117,6 +117,7 @@ exports.editProfile = function(req, res) {
 						console.log(result);
 						res.render('editProfile', {
 							title: "Edit profile",
+							id: req.session.user._id,
 							username: req.session.user.username,
 							firstname: req.session.user.firstname,
 							lastname: req.session.user.lastname,
@@ -125,6 +126,7 @@ exports.editProfile = function(req, res) {
 							address: req.session.user.address,
 							users: allUsers,
 							blockedUsers: result.blockedUsers,
+							thumbImg: req.session.user.imgThumbPath,
 							medImg: req.session.user.imgMediumPath,
 							bigImg: req.session.user.imgFullSizePath
 						});
@@ -164,6 +166,20 @@ exports.updateProfile =  function(req, res) {
 		});
 	}
 };
+
+exports.viewProfile = function(req, res) {
+	if (checkSession(req.session, res)) {
+		var userData = user.getUserById(req.params.id, function(error, result) {
+			if (result) {
+				//req.session.userToView = result;
+				res.render("profile", {userToView : result, thumbImg: req.session.user.imgThumbPath, firstname: req.session.user.firstname, lastname: req.session.user.lastname});
+			} else {
+				
+			}
+		});
+	}
+};
+
 exports.feeds = function(req, res){
     if (checkSession(req.session, res)) {
         var skip = parseInt(req.query.skip);
