@@ -43,6 +43,9 @@ function addFeed(data,top){
 	$('#messageSection').children("#feeds").append(feed);
 
 }
+socket.on('init', function(){
+	getFeeds(0,blockedUsers);
+});
 socket.on('feeds', function (dataArr) {
 	dataArr.reverse();
 	dataArr.forEach(function(data){
@@ -60,5 +63,5 @@ function sendFeed(user,content){
 	socket.emit('sendFeed', user, content);
 }
 function getFeeds(skip){
-	socket.emit('getFeeds', skip);
+	socket.emit('getFeeds', skip, blockedUsers);
 }

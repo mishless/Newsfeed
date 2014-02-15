@@ -77,7 +77,7 @@ block content
 							label(for= users[i].username)
 							= '' + users[i].firstname
 							= ' ' + users[i].lastname
-							input(type="checkbox" name="blockedUsers" value= users[i].username id= users[i].username checked= blockedUsers.indexOf(users[i].username) > -1)
+							input(type="checkbox" name="blockedUsers" value= users[i]._id id= users[i].username checked= blockedUsers.indexOf(users[i]._id) > -1)
 						- } 
 					- } else {
 					| There are no users registered in the system except you! Ha-ha!

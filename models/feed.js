@@ -38,6 +38,18 @@ exports.getNextNFeeds = function(count, skip, callback){
         }
     });
 }
+exports.getNextNFeedsWithoutBlocked = function(count, skip, blocked, callback){
+	var feed = mongoose.model("feed");
+	feed.find({user:{$nin:blocked}},{},{limit:count,skip:skip, sort:{creationDate:-1}}).populate("user").exec(function(error, result){
+		if(error){
+			callback(error);
+		}
+		else{
+
+			callback(null, result);
+		}
+	});
+}
 exports.addFeed = function(data, callback){
     if(data && data.content && data.user){
         var feed = mongoose.model("feed");

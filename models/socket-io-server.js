@@ -10,26 +10,20 @@ exports.createSocketIoServer = function createSocketIoServer(io)
 {
 	var ioServer = io;
 	io.sockets.on('connection', function (socket) {
-		feed.getFirstNFeeds(feedCount,function(err,result){
-			if(err){
-				socket.emit('error',{error:err});
-			}
-			else{
-				socket.emit('feeds', result);
-			}
-		});
-		socket.on('getFeeds', function (skip) {
+		socket.emit('init');
+		socket.on('getFeeds', function (skip,blockedUsers) {
 			var s = parseInt(skip);
 			if(!skip||skip <0)
 			{
 				skip = 0;
 			}
-			feed.getNextNFeeds(feedCount,skip,function(err,result){
+
+			feed.getNextNFeedsWithoutBlocked(feedCount,skip, blockedUsers.split(","), function(err,result){
 				if(err){
 					socket.emit('error', {error:err});
 				}
 				else{
-					socket.emit('feed',result);
+					socket.emit('feeds',result);
 				}
 			})
 		});

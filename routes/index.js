@@ -142,6 +142,7 @@ exports.updateProfile =  function(req, res) {
 	if (checkSession(req.session, res)) {
 		console.log(req.body);
 		console.log(req.files);
+
 		user.updateAccount(req.session.user._id, req.body, req.files, function(error, result) {
 			if (error) {
 				console.log(error);
@@ -186,7 +187,7 @@ exports.feeds = function(req, res){
         var feedsCount = 3;
         if(!skip||skip<0)
             skip = 0;
-	    res.render("feeds", {user:req.session.user._id});
+	    res.render("feeds", {user:req.session.user._id, blockedUsers:req.session.user.blockedUsers});
 
        /* feed.getNextNFeeds(feedsCount, skip, function (error, result) {
 	        if(error){
