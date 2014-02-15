@@ -73,13 +73,15 @@ exports.addFeed = function(data, callback){
     }
 }
 
-exports.getAllFeedsFromUserById  = function(userId, callback){
+exports.getAllLikesFromUserById  = function(userId, callback){
     var message = mongoose.model("feed");
-    message.find({user: userId}).populate("user").exec( function(error, result){
+    console.log(userId);
+    message.aggregate([{$match : {user: mongoose.Schema.Types.ObjectId(userId)}}, { $project: { _id: 0, count: 1 }}], function(error, result){
         if(error){
             callback(error);
         }
-        else{
+        else {
+        	console.log("Result: " + result);
             callback(null, result);
         }
     });

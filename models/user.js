@@ -3,7 +3,7 @@ var crypto = require("crypto");
 var mkdirp = require("mkdirp");
 var fs = require("fs");
 var im = require("imagemagick");
-var feeds = require("../models/feed");
+var feed = require("../models/feed");
 
 exports.autoLogin = function(username, password, callback) {
 	var user = mongoose.model('user');
@@ -420,9 +420,9 @@ var validatePassword = function(plainPassword, hashedPassword, callback) {
 };
 
 var getAllLikesForUserById = function(userId, callback) {
-	feed.getAllFeedsFromUserById(userId, function(error, result) {
+	feed.getAllLikesFromUserById(userId, function(error, result) {
 		if (error) {
-			callback(error)
+			callback(error);
 		} else {
 			callback(null, result);
 		}

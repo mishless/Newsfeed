@@ -173,9 +173,16 @@ exports.viewProfile = function(req, res) {
 		var userData = user.getUserById(req.params.id, function(error, result) {
 			if (result) {
 				//req.session.userToView = result;
-				res.render("profile", {userToView : result, thumbImg: req.session.user.imgThumbPath, firstname: req.session.user.firstname, lastname: req.session.user.lastname});
+				user.getRatingByUserId(req.params.id, function(error, likes) {
+					if (error) {
+						console.log(error);
+					} else {
+						console.log("Likes" + likes);
+						res.render("profile", {userToView : result, thumbImg: req.session.user.imgThumbPath, firstname: req.session.user.firstname, lastname: req.session.user.lastname});
+					}
+				});
 			} else {
-				
+				console.log(error);
 			}
 		});
 	}
@@ -187,7 +194,7 @@ exports.feeds = function(req, res){
         var feedsCount = 3;
         if(!skip||skip<0)
             skip = 0;
-	    res.render("feeds", {user:req.session.user._id, blockedUsers:req.session.user.blockedUsers});
+	    res.render("feeds", {user:req.session.user._id, userData: req.session.user, blockedUsers:req.session.user.blockedUsers});
 
        /* feed.getNextNFeeds(feedsCount, skip, function (error, result) {
 	        if(error){

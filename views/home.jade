@@ -7,7 +7,11 @@ block header
 		a(href="/edit-profile") Edit Profile
 	div.signout-form
 		a.profile-info(href="/profile/" + userdata._id)
+			- if (userdata.imgThumbPath) {
 			img(src= userdata.imgThumbPath, alt="Profile picture")
+			- } else {
+			img(src="/images/no-image-small.png", alt="Profile picture")
+			- }
 			span(class="user")= userdata.firstname
 				|&nbsp;
 				= userdata.lastname

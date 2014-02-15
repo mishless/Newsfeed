@@ -7,12 +7,16 @@ block header
         a(href = "/feeds") Feeds
         a(href = "/edit-profile") Edit Profile
     div.signout-form
+        a.profile-info(href="/profile/" + user)
+            - if(userData.imgThumbPath) {
+            img(src= userData.imgThumbPath, alt="Profile picture")
+            - } else {
+            img(src="/images/no-image-small.png", alt="Profile picture")
+            - }
+            span(class="user")= userData.firstname
+                |&nbsp;
+                = userData.lastname
         form(method = "get", action = "/signout")
-            a.profile-info(href="/profile?id=" + id)
-                img(src= thumbImg, alt="Profile picture")
-                span(class="user")= firstname
-                 |&nbsp;
-                 = lastname
             label(class = "signout-button")
                 input(value ="Sign Out" type = "submit" id = "sign-out")
 block script
